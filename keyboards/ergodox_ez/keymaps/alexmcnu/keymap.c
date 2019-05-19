@@ -94,25 +94,16 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
 
 void set_layer_color(int layer) {
   for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-    // if ((i >= 0 && i < 5) || (i >= 24 && i < 29)) {
-      // hsv = {
-      //   .h = pgm_read_byte(&capsmap[i][0]),
-      //   .s = pgm_read_byte(&capsmap[i][1]),
-      //   .v = pgm_read_byte(&capsmap[i][2]),
-      // };
-    // } else {
     HSV hsv = {
       .h = pgm_read_byte(&ledmap[layer][i][0]),
       .s = pgm_read_byte(&ledmap[layer][i][1]),
       .v = pgm_read_byte(&ledmap[layer][i][2]),
     };
-    // }
     if (!hsv.h && !hsv.s && !hsv.v) {
         rgb_matrix_set_color( i, 0, 0, 0 );
     } else {
         RGB rgb = hsv_to_rgb( hsv );
         if (CAPS_ON && ((i >= 0 && i < 5) || (i >= 24 && i < 29))) {
-          // rgb_matrix_set_color( i, capsmap[i][0], capsmap[i][1], capsmap[i][2] );
           rgb_matrix_set_color( i, 255, 255, 255);
         } else {
           rgb_matrix_set_color( i, rgb.r, rgb.g, rgb.b );
