@@ -54,6 +54,8 @@ ARMV = 7
 # The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
 OPT_DEFS += -DCORTEX_VTOR_INIT=0x00002000
 
+BOOTLOADER = dfu
+
 # Build Options
 #   comment out to disable the options.
 #
@@ -77,6 +79,7 @@ SERIAL_LINK_ENABLE = yes
 VISUALIZER_ENABLE = yes
 LCD_ENABLE = yes
 BACKLIGHT_ENABLE = yes
+BACKLIGHT_DRIVER = custom
 LCD_BACKLIGHT_ENABLE = yes
 MIDI_ENABLE = no
 RGBLIGHT_ENABLE = no
