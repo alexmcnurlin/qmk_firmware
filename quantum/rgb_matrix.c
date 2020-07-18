@@ -207,14 +207,21 @@ bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
 #if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_TYPING_HEATMAP)
     if (rgb_matrix_config.mode == RGB_MATRIX_TYPING_HEATMAP) {
         process_rgb_matrix_typing_heatmap(record);
-    } 
+    }
 #endif // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_TYPING_HEATMAP)
 
 #if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_TYPING_HEAT_EQ)
     if (rgb_matrix_config.mode == RGB_MATRIX_TYPING_HEAT_EQ) {
         process_rgb_matrix_typing_heat_eq(record);
-    } 
+    }
 #endif // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_TYPING_HEATMAP)
+
+// TODO: Make custom profile
+#if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_RGB_MATRIX_TEST_ANIMATION)
+    if (rgb_matrix_config.mode == RGB_MATRIX_TEST_ANIMATION) {
+        process_rgb_matrix_typing_test_animation(record);
+    }
+#endif // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_TEST_ANIMATION)
 
     return true;
 }

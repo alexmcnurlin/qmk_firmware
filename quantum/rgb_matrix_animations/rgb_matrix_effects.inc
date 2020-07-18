@@ -25,6 +25,7 @@
 #include "rgb_matrix_animations/jellybean_raindrops_anim.h"
 #include "rgb_matrix_animations/typing_heatmap_anim.h"
 #include "rgb_matrix_animations/typing_heat_eq_anim.h"
+#include "rgb_matrix_animations/typing_test_animation_anim.h"
 #include "rgb_matrix_animations/digital_rain_anim.h"
 #include "rgb_matrix_animations/solid_reactive_simple_anim.h"
 #include "rgb_matrix_animations/solid_reactive_anim.h"

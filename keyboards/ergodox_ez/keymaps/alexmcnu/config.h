@@ -57,4 +57,3 @@
 // #define DISABLE_RGB_MATRIX_TYPING_HEATMAP
 
 #define EECONFIG_RGB_MATRIX (uint32_t *)16
-
