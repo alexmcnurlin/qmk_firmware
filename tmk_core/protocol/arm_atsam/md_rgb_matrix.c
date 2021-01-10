@@ -290,6 +290,11 @@ void flush(void) {
     i2c_led_q_run();
 }
 
+int ACTIVE_LAYERS = 0;
+void set_layers(uint8_t layers) {
+    ACTIVE_LAYERS = layers;
+}
+
 void md_rgb_matrix_indicators(void) {
     uint8_t kbled = keyboard_leds();
     if (kbled && rgb_matrix_config.enable) {
@@ -310,6 +315,10 @@ void md_rgb_matrix_indicators(void) {
 #if USB_LED_KANA_SCANCODE != 255
                 (led_map[i].scan == USB_LED_KANA_SCANCODE && (kbled & (1 << USB_LED_KANA))) ||
 #endif  // KANA
+                (led_map[i].scan == 9 && (ACTIVE_LAYERS & 2)) ||
+                (led_map[i].scan == 10 && (ACTIVE_LAYERS & 4)) ||
+                (led_map[i].scan == 11 && (ACTIVE_LAYERS & 8)) ||
+                (led_map[i].scan == 12 && (ACTIVE_LAYERS & 16)) ||
                 (0)) {
                 if (rgb_matrix_get_flags() & LED_FLAG_INDICATOR) {
                     led_buffer[i].r = 255 - led_buffer[i].r;
