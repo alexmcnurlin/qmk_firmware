@@ -304,7 +304,16 @@ void md_rgb_matrix_indicators(void) {
                 (led_map[i].scan == USB_LED_NUM_LOCK_SCANCODE && (kbled & (1 << USB_LED_NUM_LOCK))) ||
 #endif  // NUM LOCK
 #if USB_LED_CAPS_LOCK_SCANCODE != 255
-                (led_map[i].scan == USB_LED_CAPS_LOCK_SCANCODE && (kbled & (1 << USB_LED_CAPS_LOCK))) ||
+                ((kbled & (1 << USB_LED_CAPS_LOCK))) ||
+                // ((led_map[i].scan == USB_LED_CAPS_LOCK_SCANCODE ||
+                //     led_map[i].scan == 40 ||
+                //     led_map[i].scan == 41 ||
+                //     led_map[i].scan == 42 ||
+                //     led_map[i].scan == 44 ||
+                //     led_map[i].scan == 45 ||
+                //     led_map[i].scan == 46 ||
+                //     led_map[i].scan == 47
+                // ) && (kbled & (1 << USB_LED_CAPS_LOCK))) ||
 #endif  // CAPS LOCK
 #if USB_LED_SCROLL_LOCK_SCANCODE != 255
                 (led_map[i].scan == USB_LED_SCROLL_LOCK_SCANCODE && (kbled & (1 << USB_LED_SCROLL_LOCK))) ||
@@ -315,15 +324,19 @@ void md_rgb_matrix_indicators(void) {
 #if USB_LED_KANA_SCANCODE != 255
                 (led_map[i].scan == USB_LED_KANA_SCANCODE && (kbled & (1 << USB_LED_KANA))) ||
 #endif  // KANA
-                (led_map[i].scan == 9 && (ACTIVE_LAYERS & 2)) ||
-                (led_map[i].scan == 10 && (ACTIVE_LAYERS & 4)) ||
-                (led_map[i].scan == 11 && (ACTIVE_LAYERS & 8)) ||
+                (led_map[i].scan == 9 && (ACTIVE_LAYERS & 2)) ||   // Layer 1, 1 key
+                (led_map[i].scan == 10 && (ACTIVE_LAYERS & 4)) ||  // Layer 2, 2 key
+                (led_map[i].scan == 11 && (ACTIVE_LAYERS & 8)) ||  // Layer 3, 3 key
+                (led_map[i].scan == 12 && (ACTIVE_LAYERS & 16)) || // Layer 4, 4 key
                 (led_map[i].scan == 12 && (ACTIVE_LAYERS & 16)) ||
                 (0)) {
                 if (rgb_matrix_get_flags() & LED_FLAG_INDICATOR) {
-                    led_buffer[i].r = 255 - led_buffer[i].r;
-                    led_buffer[i].g = 255 - led_buffer[i].g;
-                    led_buffer[i].b = 255 - led_buffer[i].b;
+                    led_buffer[i].r = 255;
+                    led_buffer[i].g = 255;
+                    led_buffer[i].b = 255;
+                    // led_buffer[i].r = 255 - led_buffer[i].r;
+                    // led_buffer[i].g = 255 - led_buffer[i].g;
+                    // led_buffer[i].b = 255 - led_buffer[i].b;
                 }
             }
         }

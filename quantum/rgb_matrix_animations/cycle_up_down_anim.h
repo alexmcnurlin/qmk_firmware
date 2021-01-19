@@ -3,6 +3,7 @@ RGB_MATRIX_EFFECT(CYCLE_UP_DOWN)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 static HSV CYCLE_UP_DOWN_math(HSV hsv, uint8_t i, uint8_t time) {
+    time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 16);
     hsv.h = g_led_config.point[i].y - time;
     return hsv;
 }

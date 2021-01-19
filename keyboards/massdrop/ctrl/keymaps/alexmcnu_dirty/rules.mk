@@ -1,0 +1,2 @@
+DEBOUNCE = 1000
+DEBOUNCE_TYPE = sym_eager_pk
