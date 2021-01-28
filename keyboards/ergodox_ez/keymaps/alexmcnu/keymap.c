@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "ergodox_ez.h"
 
 #define _______ KC_TRNS
 #define WS_LEFT LGUI(LCTL(KC_LEFT))
@@ -26,11 +27,8 @@ enum custom_keycodes {
   SUP_TAB,
 };
 
-// Change lighting on layer
-// Change lighting on Caps
-// Test media keys
-// Mic mute button
-// Implement game layer
+uint8_t layer;         // Keep the current active layer on hand
+bool caps_on = false;  // Keep track of when Caps lock is enabled
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap BASE: Basic layer
@@ -164,6 +162,51 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+
+
+
+
+// Runs just one time when the keyboard initializes.
+void keyboard_post_init_user(void) {
+  layer = 0;
+  caps_on = 0;
+};
+
+
+// Runs constantly in the background
+void matrix_scan_user(void) {
+  // Change color if Caps lock is on
+  if (caps_on) {
+    rgb_matrix_set_color_all(RGBLIGHT_COLOR_CAPS);
+  } else {
+    // Otherwise set layer color
+    switch (layer) {
+      // case 0:
+      //     rgb_matrix_set_color_all(RGBLIGHT_COLOR_LAYER_0);
+      //   break;
+      case 1:
+          rgb_matrix_set_color_all(RGBLIGHT_COLOR_LAYER_1);
+        break;
+      case 2:
+          rgb_matrix_set_color_all(RGBLIGHT_COLOR_LAYER_2);
+        break;
+      case 3:
+          rgb_matrix_set_color_all(RGBLIGHT_COLOR_LAYER_3);
+        break;
+      case 4:
+          rgb_matrix_set_color_all(RGBLIGHT_COLOR_LAYER_4);
+        break;
+      case 5:
+          rgb_matrix_set_color_all(RGBLIGHT_COLOR_LAYER_5);
+        break;
+      default:
+        break;
+      }
+  }
+};
+
+
+// On keypress
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
@@ -194,12 +237,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-// Runs just one time when the keyboard initializes.
-void keyboard_post_init_user(void) {
-#ifdef RGBLIGHT_COLOR_LAYER_0
-  rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
-#endif
-};
+
+// When indicator light (Caps, Num lock, ect) changes
+bool led_update_user(led_t led_state) {
+  caps_on = led_state.caps_lock;
+  return true;
+}
+
 
 // Runs whenever there is a layer state change.
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -208,59 +252,37 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_right_led_2_off();
   ergodox_right_led_3_off();
 
-  uint8_t layer = get_highest_layer(state);
+  // Set the indicator LEDs based on layer
+  layer = get_highest_layer(state);
   switch (layer) {
-      case 0:
-        #ifdef RGBLIGHT_COLOR_LAYER_0
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
-        #endif
-        break;
+      // case 0:
+      //     rgb_matrix_set_color_all(RGBLIGHT_COLOR_LAYER_0);
+      //   break;
       case 1:
         ergodox_right_led_1_on();
-        #ifdef RGBLIGHT_COLOR_LAYER_1
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
-        #endif
+        ergodox_right_led_3_on();
         break;
       case 2:
-        ergodox_right_led_2_on();
-        #ifdef RGBLIGHT_COLOR_LAYER_2
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
-        #endif
+        ergodox_right_led_1_on();
         break;
       case 3:
-        ergodox_right_led_3_on();
-        #ifdef RGBLIGHT_COLOR_LAYER_3
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
-        #endif
+        ergodox_right_led_2_on();
         break;
       case 4:
-        ergodox_right_led_1_on();
-        ergodox_right_led_2_on();
-        #ifdef RGBLIGHT_COLOR_LAYER_4
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
-        #endif
+        ergodox_right_led_3_on();
         break;
       case 5:
         ergodox_right_led_1_on();
-        ergodox_right_led_3_on();
-        #ifdef RGBLIGHT_COLOR_LAYER_5
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
-        #endif
+        ergodox_right_led_2_on();
         break;
       case 6:
         ergodox_right_led_2_on();
         ergodox_right_led_3_on();
-        #ifdef RGBLIGHT_COLOR_LAYER_6
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_6);
-        #endif
         break;
       case 7:
         ergodox_right_led_1_on();
         ergodox_right_led_2_on();
         ergodox_right_led_3_on();
-        #ifdef RGBLIGHT_COLOR_LAYER_7
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_7);
-        #endif
         break;
       default:
         break;

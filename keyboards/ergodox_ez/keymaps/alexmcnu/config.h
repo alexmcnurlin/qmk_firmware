@@ -37,3 +37,16 @@
 
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_GRADIENT_LEFT_RIGHT // Sets the default mode, if none has been set
 #define RGB_MATRIX_STARTUP_SPD 127 // Sets the default animation speed, if none has been set
+#define RGB_DISABLE_WHEN_USB_SUSPENDED true
+
+// #define RGBLIGHT_COLOR_LAYER_0 0x00, 0x00, 0xFF
+#define RGBLIGHT_COLOR_CAPS    0xFF, 0xFF, 0xFF
+#define RGBLIGHT_COLOR_LAYER_1 0xFF, 0x00, 0xFF
+#define RGBLIGHT_COLOR_LAYER_2 0xFF, 0x00, 0x00
+#define RGBLIGHT_COLOR_LAYER_3 0x00, 0xFF, 0x00
+#define RGBLIGHT_COLOR_LAYER_4 0x00, 0x00, 0xFF
+#define RGBLIGHT_COLOR_LAYER_5 0xFF, 0xFF, 0x00
+// #define RGBLIGHT_COLOR_LAYER_4 0xFF, 0xFF, 0x00
+// #define RGBLIGHT_COLOR_LAYER_5 0x00, 0xFF, 0xFF
+// #define RGBLIGHT_COLOR_LAYER_6 0x00, 0x00, 0xFF
+// #define RGBLIGHT_COLOR_LAYER_7 0xFF, 0xFF, 0xFF

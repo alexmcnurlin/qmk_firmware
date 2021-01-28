@@ -324,11 +324,13 @@ void md_rgb_matrix_indicators(void) {
 #if USB_LED_KANA_SCANCODE != 255
                 (led_map[i].scan == USB_LED_KANA_SCANCODE && (kbled & (1 << USB_LED_KANA))) ||
 #endif  // KANA
-                (led_map[i].scan == 9 && (ACTIVE_LAYERS & 2)) ||   // Layer 1, 1 key
-                (led_map[i].scan == 10 && (ACTIVE_LAYERS & 4)) ||  // Layer 2, 2 key
-                (led_map[i].scan == 11 && (ACTIVE_LAYERS & 8)) ||  // Layer 3, 3 key
-                (led_map[i].scan == 12 && (ACTIVE_LAYERS & 16)) || // Layer 4, 4 key
-                (led_map[i].scan == 12 && (ACTIVE_LAYERS & 16)) ||
+                (led_map[i].scan == 9 && (ACTIVE_LAYERS & 2)) ||    // Layer 1, 1 key
+                (led_map[i].scan == 10 && (ACTIVE_LAYERS & 4)) ||   // Layer 2, 2 key
+                (led_map[i].scan == 11 && (ACTIVE_LAYERS & 8)) ||   // Layer 3, 3 key
+                (led_map[i].scan == 12 && (ACTIVE_LAYERS & 16)) ||  // Layer 4, 4 key
+                (led_map[i].scan == 13 && (ACTIVE_LAYERS & 32)) ||  // Layer 5, 5 key
+                (led_map[i].scan == 14 && (ACTIVE_LAYERS & 64)) ||  // Layer 6, 6 key
+                (led_map[i].scan == 15 && (ACTIVE_LAYERS & 128)) || // Layer 7, 7 key
                 (0)) {
                 if (rgb_matrix_get_flags() & LED_FLAG_INDICATOR) {
                     led_buffer[i].r = 255;
